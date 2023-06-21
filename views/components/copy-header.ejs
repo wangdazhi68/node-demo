@@ -1,0 +1,152 @@
+<div class="headerNav">
+    <div class="tsa-top">
+        <div class="tsa-top-container">
+            <div class="tsa-top-container-left">
+                <div class="time">
+                    <p class="timeP">
+                        123
+                    </p>
+                    <div class="showTip">
+                        <a href="javascript:;">国家授时中心标准时间</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tsa-top-container-right">
+                <a href="#" target="_blank" class="verifyStamp">可信时间戳验证中心</a>
+                <div class="qr">
+                    <div class="tsa-qrcode-tip-app" @touchmove.prevent>
+                        <div class="tsa-qrcode-tip-app-content">
+                            <div class="tsa-qrcode-tip" style="right: 0" v-show="show">
+                                <div class="tsa-qrcode-tip-con">
+                                    <img src="/images/header/footerTsa.png" alt="">
+                                    <div class="detail">
+                                        <h3>权利卫士
+                                            <span>APP</span>
+                                        </h3>
+                                        <p>扫描二维码</p>
+                                        <p>安装权利卫士客户端</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="triangle" v-show="show"></div>
+                            <a href="javascript:;" class="header_btn" :class="show ? 'selected' : ''">
+                                <span>手机APP</span>
+                            </a>
+                        </div>
+                        <div class="mask" v-show="show" @click.stop="show = false"></div>
+                    </div>
+                </div>
+                <div class="qr">
+                    <div class="tsa-qrcode-tip-app" @touchmove.prevent>
+                        <div class="tsa-qrcode-tip-app-content">
+                            <div class="tsa-qrcode-tip" style="right: 0" v-show="show">
+                                <div class="tsa-qrcode-tip-con">
+                                    <img src="/images/header/footerWx.png" alt="">
+                                    <div class="detail">
+                                        <h3>时间戳
+                                            <span>公众号</span>
+                                        </h3>
+                                        <p>扫描二维码</p>
+                                        <p>关注时间戳公众号</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="triangle" v-show="show"></div>
+                            <a href="javascript:;" class="header_btn" :class="show ? 'selected' : ''">
+                                <span>公众号</span>
+                            </a>
+                        </div>
+                        <div class="mask" v-show="show" @click.stop="show = false"></div>
+                    </div>
+                </div>
+                <div class="qr">
+                    <div class="tsa-qrcode-tip-app" @touchmove.prevent>
+                        <div class="tsa-qrcode-tip-app-content">
+                            <div class="tsa-qrcode-tip" style="right: 0;background-image:url('/images/header/10.png')" v-show="show">
+                                <div class="tsa-qrcode-tip-con">
+                                    <img src="/images/header/12.png" alt="">
+                                    <div class="detail">
+                                        <h3>可信时间戳
+                                            <span>抖音号</span>
+                                        </h3>
+                                        <p>抖音扫描二维码</p>
+                                        <p>进入可信时间戳抖音号</p>
+                                    </div>
+                                </div>
+                                <div class="tsa-qrcode-tip-con">
+                                    <img src="/images/header/footerWx.png" alt="">
+                                    <div class="detail">
+                                        <h3>时间戳
+                                            <span>视频号</span>
+                                        </h3>
+                                        <p>扫描二维码</p>
+                                        <p>进入可信时间戳视频号</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="triangle" v-show="show"></div>
+                            <a href="javascript:;" class="header_btn" :class="show ? 'selected' : ''">
+                                <span>公众号</span>
+                            </a>
+                        </div>
+                        <div class="mask" v-show="show" @click.stop="show = false"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <TsaNavBar :navList="navList" :userInfo="userInfo" :userMenu="userMenu" :lawyerObj="lawyerObj"
+        @on-onLogin="onLogin" /> -->
+    <div class="tsa-navBar">
+        <div class="tsa-navBar-container">
+            <div class="logo" v-if="<%= list[0] %>">
+                <a :href="<%=list[0].link%>" :target="<%= list[0].target %>">
+                    <img src="/images/header/tsaHeaderLogo.png" alt="">
+                </a>
+            </div>
+            <div class="nav" :class="drawShow ? 'slide' : ''">
+
+                <% list.forEach((item,index)=> { %>
+                <div class="nav-item" 
+                    :class="[initialIndex === <%= index %> ? 'initActived' : '', <%= item.selected %> ? 'selected': '']" 
+                    >
+                    <div class="nav-item-name" @click.stop="open1(item, index)">
+                        <a :href="<%= item.link %> ? <%= item.link %> : 'javascript:;'" :class="<%= item.selected %> ? 'actived' : ''" :target="<%= item.target %>"><%= item.name %></a>
+                        <img class="downJ" :class="<%= item.show %> ? 'rotate' : ''" :src="rightArrow" v-show="<%= item.children %>&& <%= item.children.length %> !== 0" alt="">
+                    </div>
+                    <div class="nav-item-children1" v-show="<%= item.children %> && <%= item.children.length %> !== 0 && (<%= item.show %> || deviceType === 'PC')">
+                        <div class="nav-item-children1-container">
+
+                            <% item.children.forEach((item1,index1)=> { %>
+                            <div class="nav-item-children1-container-item">
+                                <div class="nav-item-children1-container-name" @click.stop="open2(item1)">
+                                    <a :href="<%= item1.link %> ? <%= item1.link %> : 'javascript:;'" :class="[<%= item1.selected %> ? 'actived' : '', <%= item1.children %> && <%= item1.children.length %> !== 0 ? 'exist' : '' ]" :target="<%= item1.target %>"><%= item1.name %></a>
+                                    <img class="rightJ" :class="<%= item1.show %> ? 'rotate' : ''" :src="rightArrow" v-show="<%= item1.children %> && <%= item1.children.length %> !== 0" alt="">
+                                </div>
+                                <div class="nav-item-children2" v-show="<%= item1.children %> && <%= item1.children.length %> !== 0 && (<%= item1.show %> || deviceType === 'PC')">
+                                    <div class="nav-item-children2-container">
+
+                                        <% item1.children.forEach((item2, index2)=> { %>
+                                        <div class="nav-item-children2-container-name" @click.stop="open3(<%= item2 %>)" >
+                                            <a :href="<%= item2.link %> ? <%= item2.link %> : 'javascript:;'" :class="<%= item2.selected %> ? 'actived' : ''" :target="<%= item2.target %>"><%= item2.name %></a>
+                                        </div>
+                                        <% }); %>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+
+                
+            </div>
+        </div>
+    </div>
+</div>

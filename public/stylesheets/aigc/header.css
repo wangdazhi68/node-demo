@@ -1,0 +1,482 @@
+.time {
+  cursor: pointer;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14PX;
+  font-weight: 500;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.time:hover {
+  color: #3758ff;
+}
+.time:hover .showTip {
+  display: block;
+}
+.time .showTip {
+  position: absolute;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14PX;
+  right: 0;
+  top: 30PX;
+  padding-top: 20PX;
+  z-index: 9;
+  display: none;
+}
+.time .showTip a {
+  padding: 6PX 8PX;
+  color: #fff;
+  text-decoration: none;
+  word-wrap: break-word;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 4PX;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.time .showTip a::after {
+  position: absolute;
+  top: 13PX;
+  left: 50%;
+  width: 5PX;
+  height: 5PX;
+  background-color: rgba(0, 0, 0, 0.75);
+  content: "";
+  pointer-events: auto;
+  transform: translateY(-50%) rotate(45deg);
+}
+.tsa-top {
+  width: 100%;
+  height: 30PX;
+  background: #232323;
+  font-size: 14PX;
+}
+.tsa-top a {
+  color: #fff;
+}
+.tsa-top a:hover {
+  color: #3758ff;
+}
+.tsa-top .tsa-top-container {
+  width: 1240PX;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.tsa-top .tsa-top-container .tsa-top-container-left {
+  height: 100%;
+}
+.tsa-top .tsa-top-container .tsa-top-container-right {
+  display: flex;
+  align-items: center;
+}
+.tsa-top .tsa-top-container .tsa-top-container-right .qr {
+  margin-left: 19PX;
+  height: 100%;
+}
+.tsa-qrcode-tip-app {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content {
+  height: 100%;
+  line-height: 30PX;
+  position: relative;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip {
+  background-image: url('../../images/header/appbg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 106% 88%;
+  position: absolute;
+  top: 30PX;
+  z-index: 10;
+  padding-top: 10PX;
+  z-index: 9;
+  display: flex;
+  width: max-content;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip .tsa-qrcode-tip-con {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  height: 190px;
+  padding: 34px 34px 50px 27px;
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: none;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip .tsa-qrcode-tip-con img {
+  width: 90PX;
+  height: 90PX;
+  margin-right: 32PX;
+  flex-shrink: 0;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip .tsa-qrcode-tip-con .detail {
+  color: #232323;
+  flex: 1;
+  font-size: 14PX;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip .tsa-qrcode-tip-con .detail h3 {
+  font-size: 16PX;
+  color: #333;
+  font-weight: 500;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip .tsa-qrcode-tip-con .detail span {
+  color: #3758ff;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip .tsa-qrcode-tip-con .detail p:last-child {
+  margin-bottom: 0;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .tsa-qrcode-tip::after {
+  content: '';
+  width: 100%;
+  height: 3PX;
+  background-color: #3758ff;
+  position: absolute;
+  top: 10PX;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .triangle {
+  position: absolute;
+  z-index: 10;
+  top: 30PX;
+  left: -1PX;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10PX 10PX 10PX;
+  border-color: transparent transparent #3758ff transparent;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .header_btn {
+  font-size: 14PX;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+}
+.tsa-qrcode-tip-app .tsa-qrcode-tip-app-content .header_btn:hover {
+  color: #3F7DF7;
+}
+.tsa-qrcode-tip-app:hover .tsa-qrcode-tip {
+  display: flex!important;
+}
+.tsa-qrcode-tip-app:hover .triangle {
+  display: block!important;
+}
+.tsa-qrcode-tip-app .mask {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.tsa-navBar {
+  width: 100%;
+  position: relative;
+  z-index: 8;
+  background-color: #fff;
+  box-shadow: 0px -2PX 16PX 0PX rgba(35, 35, 35, 0.2);
+}
+.tsa-navBar .tsa-navBar-container {
+  width: 1240PX;
+  height: 67PX;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.tsa-navBar .tsa-navBar-container .logo {
+  flex-shrink: 0;
+  margin-right: 77PX;
+}
+.tsa-navBar .tsa-navBar-container .logo img {
+  height: 50PX;
+  cursor: pointer;
+}
+.tsa-navBar .tsa-navBar-container .nav {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  margin-left: 30px;
+}
+.tsa-navBar .tsa-navBar-container .nav .initActived::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3PX;
+  background: #3f7df7;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  margin-left: 32PX;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item:hover .nav-item-children1 {
+  display: block;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item:hover .nav-item-name .downJ {
+  transition: all 0.3s ease;
+  transform: rotate(180deg) !important;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3PX;
+  background: #3f7df7;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-name {
+  display: flex;
+  align-items: center;
+  margin-top: -2PX;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-name a {
+  color: #111;
+  font-size: 16PX;
+  font-weight: 500;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-name a:hover {
+  color: #3f7df7;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-name .downJ {
+  width: 16PX;
+  height: 16PX;
+  margin-left: 4PX;
+  transition: all 0.3s ease;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 {
+  display: none;
+  position: absolute;
+  padding-top: 3PX;
+  top: 67PX;
+  z-index: 9;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 a {
+  display: block;
+  font-size: 14PX;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 0 12PX;
+  line-height: 22PX;
+  white-space: nowrap;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 img {
+  margin: 0 12PX;
+  width: 14PX;
+  height: 14PX;
+  transform: rotate(-90deg);
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .exist {
+  padding-right: 0 !important;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container {
+  padding: 8PX 0 10PX;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 4PX;
+  box-shadow: 0 2PX 8PX rgba(0, 0, 0, 0.15);
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item {
+  position: relative;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item:hover .nav-item-children2 {
+  display: block;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children1-container-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children1-container-name:hover {
+  background: #dee7f7 !important;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children1-container-name a {
+  width: 100%;
+  padding: 8px 24px;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children2 {
+  display: none;
+  padding-left: 10PX;
+  position: absolute;
+  left: 145PX;
+  top: -54PX;
+  background: transparent;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children2 .nav-item-children2-container {
+  padding: 8PX 0 10PX;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 4PX;
+  box-shadow: 0 2PX 8PX rgba(0, 0, 0, 0.15);
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children2 .nav-item-children2-container .nav-item-children2-container-name a {
+  width: 100%;
+  padding: 8px 24px;
+}
+.tsa-navBar .tsa-navBar-container .nav .nav-item .nav-item-children1 .nav-item-children1-container .nav-item-children1-container-item .nav-item-children2 .nav-item-children2-container .nav-item-children2-container-name:hover {
+  background: #dee7f7 !important;
+}
+.tsa-navBar .tsa-navBar-container .nav .m-login {
+  display: none;
+}
+.tsa-navBar .tsa-navBar-container .findAlawyer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-right: 40PX;
+  cursor: pointer;
+}
+.tsa-navBar .tsa-navBar-container .findAlawyer img {
+  width: 24PX;
+  height: 24PX;
+  margin-right: 5PX;
+}
+.tsa-navBar .tsa-navBar-container .findAlawyer p {
+  color: #333;
+  font-size: 16PX;
+  font-weight: 500;
+}
+.tsa-navBar .tsa-navBar-container .login {
+  flex-shrink: 0;
+  height: 100%;
+}
+.tsa-navBar .tsa-navBar-container .login:hover {
+  height: 100%;
+}
+.tsa-navBar .tsa-navBar-container .login:hover .phone .dropMenu {
+  display: block;
+}
+.tsa-navBar .tsa-navBar-container .login .notLogin {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.tsa-navBar .tsa-navBar-container .login .notLogin .loginOrRegister {
+  width: 102PX;
+  display: block;
+  height: 36PX;
+  background: #3f7df7;
+  border-radius: 4PX;
+  line-height: 36PX;
+  font-size: 14PX;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+}
+.tsa-navBar .tsa-navBar-container .login ul {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.tsa-navBar .tsa-navBar-container .login ul .icon {
+  margin-right: 8PX;
+  flex-shrink: 0;
+  position: relative;
+}
+.tsa-navBar .tsa-navBar-container .login ul .icon img {
+  width: 32PX;
+  height: 32PX;
+}
+.tsa-navBar .tsa-navBar-container .login ul .icon .vip {
+  width: 38PX;
+  height: 33PX;
+}
+.tsa-navBar .tsa-navBar-container .login ul .icon .redPoint {
+  width: 11px;
+  height: 11px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  height: 100%;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone:hover .dropMenu {
+  display: block;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone p {
+  font-size: 16PX;
+  font-weight: bold;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone img {
+  width: 16PX;
+  height: 16PX;
+  margin-left: 4PX;
+  transition: all 0.3s ease;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone:hover img {
+  transform: rotate(180deg);
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone .dropMenu {
+  display: none;
+  padding-top: 3PX;
+  position: absolute;
+  top: 67PX;
+  z-index: 9;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone .dropMenu ol {
+  padding: 8PX 0 10PX;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: 4PX;
+  box-shadow: 0 2PX 8PX rgba(0, 0, 0, 0.15);
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone .dropMenu ol li {
+  padding: 8PX 12PX;
+  position: relative;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone .dropMenu ol li:hover {
+  background: #dee7f7 !important;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone .dropMenu ol li a {
+  display: block;
+  font-size: 14PX;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 0 12PX;
+  line-height: 22PX;
+  white-space: nowrap;
+}
+.tsa-navBar .tsa-navBar-container .login ul .phone .dropMenu ol li .redPoint {
+  width: 7px;
+  height: 7px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  right: 18px;
+  top: 8px;
+}
+.tsa-navBar .tsa-navBar-container .iconTop {
+  display: none;
+  width: 40px;
+  height: 40px;
+}
+.tsa-navBar .navMask {
+  display: none;
+}

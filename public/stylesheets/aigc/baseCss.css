@@ -1,0 +1,227 @@
+/* fade */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.28s;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}
+
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all 0.5s;
+}
+
+.fade-transform-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+:root {
+    --Colors: #1c94f3;
+}
+
+.bgCommon {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.bgCog {
+    width: 4px;
+    height: 14px;
+    background: #258cf5;
+    display: inline-block;
+    margin-right: 7px;
+    padding-top: 2px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+}
+
+.clearfix:after,
+.clearfix:before {
+    content: '';
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.ant-modal-confirm-body .ant-modal-confirm-content {
+    margin-top: 0;
+}
+
+.flexLabel {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.textOverFlow {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.textOverFlow1 {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    float: left;
+    width: 86%;
+}
+
+.tableFormIcon {
+    margin-top: 3px;
+}
+
+.COL {
+    background: #f0f2f5;
+    height: 13px;
+    width: 100%;
+}
+
+.iconBlue {
+    color: #1c94f3;
+    font-size: 20px;
+}
+
+.vxe-textarea--count {
+    bottom: -13px;
+    right: 11px;
+    background: none;
+}
+
+.ant-modal-body .vxe-textarea .vxe-textarea--count {
+    bottom: 0.2em !important;
+}
+
+.vxe-loading {
+    top: 48px;
+    background: #fff;
+}
+
+
+
+.vxe-loading .vxe-loading--spinner:before,
+.vxe-loading .vxe-loading--spinner:after {
+    content: '加载中....';
+    animation: none;
+    background: none;
+    text-align: center;
+    color: #1c94f3;
+    font-size: 15px;
+    top: 3px;
+}
+
+.formCheckBox .ant-form-item {
+    margin-top: -15px;
+}
+
+.formCheckBox .ant-form-item-label > label::after {
+    content: none;
+}
+
+.formCheckBox .ant-checkbox-group {
+    float: right;
+}
+
+.formCheckBox .ant-checkbox + span {
+    padding-right: 0;
+}
+
+.formCheckBox {
+    margin-bottom: 5px !important;
+}
+
+.formCheckPdf .ant-form-item-control-wrapper {
+    margin-top: -3px;
+}
+
+.formName .checkGroup {
+    width: 22%;
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    margin-top: 4px;
+}
+
+.formName .checkGroup .ant-checkbox + span {
+    padding-right: 0;
+}
+
+.formName .ant-input-group > .ant-input-affix-wrapper {
+    border-radius: 4px !important;
+}
+
+.formName .ant-input-group > .ant-input-affix-wrapper .ant-input {
+    border-radius: 4px;
+    border-right: 1px solid #d9d9d9 !important;
+}
+
+.formName .ant-input-group > .ant-input-affix-wrapper .ant-input:focus {
+    border-right: 1px solid #40a9ff !important;
+}
+
+.formName .ant-input-group > .ant-input-affix-wrapper .ant-input:hover {
+    border-right: 1px solid #40a9ff !important;
+}
+
+.formName .has-error .ant-input-affix-wrapper .ant-input {
+    border-right: 1px solid #f5222d !important;
+}
+
+.formName .has-error .ant-input-affix-wrapper .ant-input:focus {
+    border-right: 1px solid #f5222d !important;
+}
+
+.formName .has-error .ant-input-affix-wrapper .ant-input:hover {
+    border-right: 1px solid #f5222d !important;
+}
+
+.detailCheckBox {
+    text-align: right;
+    margin-top: 3px;
+    color: #4d4949a1 !important;
+    font-size: 14px;
+}
+
+.nameCheckBox {
+    margin-left: 15px;
+    color: #4d4949a1 !important;
+}
+
+.remarkDetailFalse {
+    margin-left: 41%;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}

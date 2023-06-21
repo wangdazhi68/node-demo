@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aigc页面demo</title>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="aigcCon">
+            <div class="banner bgCommon" :style="{ backgroundImage: 'url(' + bannerImg + ')' }">
+                <div class="bannerMain">
+                    <div class="bannerBtn  btn" @click="dockModal=true">申请接入</div>
+                </div>
+            </div>
+            <div class="address">
+                <div class="addressMain">
+                    <el-row type="flex" justify="space-between" class="">
+                        <el-col v-for="(item, index) in addressInfo" :key="index"
+                            :span="index === 0 ? 7 : index === 1 ? 9 : index === 2 ? 6 : ''"
+                            @click.native="addressClick(index)" class="addCol">
+                            <div class="left bgCommon" :style="{
+                    backgroundImage: 'url(' + item.img + ')',
+                  }"></div>
+                            <div class="addressTitle" v-html="item.title" />
+                            <div class="addressText">
+                                <p v-html="item.info" v-if="index!==0"></p>
+                                <p v-else>使用可信时间戳证据的裁判文书{{ accountNum.precedentTotal }}件</p>
+                            </div>
+                            <div class="addressBot" v-if="index === 0">
+                                (数据来源：中国裁判文书网)
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+            </div>
+            <div class="earth">
+                <div class="earthMain bgCommon" :style="{ backgroundImage: 'url(' + earthPng + ')' }">
+                    <div class="earthTxt earthTxt1">
+                        {{ earthInfo.info1 }}
+                    </div>
+                    <div class="earthTxt earthTxt2">
+                        {{ earthInfo.info2 }}
+                    </div>
+                </div>
+            </div>
+            <div class="introduce">
+                <div class="introduceMain">
+                    <div class="title">AIGC PAS 平台介绍</div>
+                    <div class="text">
+                        <div class=" introduceText1">
+                            {{ introduceInfo.text1 }}
+                        </div>
+                        <div class=" introduceText2">
+                            {{ introduceInfo.text2 }}
+                        </div>
+                    </div>
+                    <div class="introLogo bgCommon" :style="{ backgroundImage: 'url(' + introduceInfo.img + ')' }" />
+
+                </div>
+            </div>
+            <div class="precedent">
+                <div class="title">
+                    典型案例
+                </div>
+                <div class="preceMain">
+                    <div class="preceLogo bgCommon" :style="{ backgroundImage: 'url(' + precedentInfo.img + ')' }" />
+                    <div class="preceText">
+                        <div class="text">
+                            <p class="P1 bgCommon"
+                                :style="{ backgroundImage: 'url(' + precedentInfo.textPng1 + ')' }" />
+                            <span>{{ precedentInfo.text1 }}</span>
+                        </div>
+                        <div class="text">
+                            <span>{{ precedentInfo.text2 }}</span>
+                            <p class="P2 bgCommon"
+                                :style="{ backgroundImage: 'url(' + precedentInfo.textPng2 + ')' }" />
+                        </div>
+                        <div class="btn" @click="dockModal=true">申请接入</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--    news qa-->
+        <div class="preCon">
+            <el-row type="flex" class="pre-bg" justify="space-between">
+                <el-col :span="15" class="preLeftCol">
+                    <div class="pre-left">
+                        <h3 class="title">
+                            AIGC新闻资讯</h3>
+                        <div class="tab-cnt">
+                            <ul>
+                                <li v-for="item in newList" :key="item.id">
+                                    <div class="introduceImg bgCommon"
+                                        :style="{ backgroundImage: 'url(' + item.filePath + ')' }" />
+                                    <div class="introText" @click="goDetail(`news/detail/${item.id}`)">
+                                        <div>
+                                            <p class="introduce" v-html="item.title"></p>
+                                            <p class="caseNo textOverFlow">{{ item.description }}</p>
+                                        </div>
+                                        <p class="caseTime">{{ item.publishedAt|parseTime }}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="more" @click="botClck(1)">
+                                <span>查看更多 <i class="el-icon-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+                <el-col :span="8" class="preRightCol">
+                    <div class="pre-right">
+                        <h3 class="title">常见问题</h3>
+                        <div class="qusion">
+                            <div class="ipt-wrap">
+                                <el-input type="text" placeholder="请输入您想要了解的问题或关键字" v-model="newKeywords" class="ipt">
+                                    <i class="el-icon-search el-input__icon" slot="suffix" @click="botClck(3)">
+                                    </i>
+                                </el-input>
+                            </div>
+                            <ul class="cnt">
+                                <li v-for="item in questionsList" :key="item.id"
+                                    @click="goDetail(`question/detail/${item.id}`)">
+                                    <span class="bgCommon"
+                                        :style="{ backgroundImage: 'url(' + questionImg + ')' }"></span>
+                                    <p v-html="item.question"></p>
+                                </li>
+                            </ul>
+                            <div class="more">
+                                <span @click="botClck(2)">查看更多 <i class="el-icon-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
+        <div class="aigcApply bgCommon" :style="{ backgroundImage: 'url(' + aigcApplyPng + ')' }">
+            <div class="title">让可信时间戳为AIGC作证</div>
+            <div class="btn" @click="dockModal=true">申请接入</div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#wrap',
+        data() {
+            return {
+                dockModal: false,
+                newKeywords: '',
+                questionsList: [],
+                courtRank: [],
+                newList: [],
+                bannerImg: '/images/home/banner.png',
+                addressInfo: [
+                    {
+                        img: "/images/home/address1.png",
+                        title: "司法认可",
+                        info: "使用可信时间戳生效判决80000件",
+                    },
+                    {
+                        img: "/images/home/address2.png",
+                        title: "世界知识产权组织、国家版权局 版权金奖",
+                        info: "荣获2018年“中国版权金奖”保护奖",
+                    },
+                    {
+                        img: "/images/home/address3.png",
+                        title: "安全保密",
+                        info: "公安等保三级，脱敏认证不上传原文",
+                    },
+                ],
+                accountNum: {},
+                earthPng: '/images/home/earth.png',
+                earthInfo: {
+                    info1: '2023年1月10日国家互联网信息办公室、中华人民共和国工业和信息化部、中华人民共和国公安部制定并施行《互联网信息服务深度合成管理规定》，明确规定“深度合成服务提供者对使用服务生成或者编辑的信息内容，应当采取技术措施添加不影响用户使用的标识，并依照法律、行政法规和国家有关规定保存日志信息。”',
+                    info2: '2023年4月11日国家互联网信息办公室公布《生成式人工智能服务管理办法（征求意见稿）》，公开征求意见中要求AIGC平台承担内容生产者的责任，保证数据的真实性、准确性、客观性、多样性，对生成的图片、视频等内容进行标识。'
+                },
+                introduceInfo: {
+                    img: '/images/home/introduce.png',
+                    text1: 'AIGC PAS（AIGC Provenance and Authentication Service）',
+                    text2: '平台是联合信任推出的人工智能生成内容（AIGC）的溯源与认证平台。平台采用密码学、时间戳、哈希值校验、电子签名、数字指纹等多种技术手段，对AIGC生成过程进行全程存证，并颁发唯一且不可篡改的身份标识和来源证明（tsa token），为解决AIGC发展过程中面临的深度伪造、版权纠纷、信任危机以及平台合规等提供证据。'
+                },
+                precedentInfo: {
+                    img: '/images/home/precedent.png',
+                    textPng1: '/images/home/precedentText1.png',
+                    textPng2: '/images/home/precedentText2.png',
+                    text1: '视觉中国是国内领先的视觉内容服务提供商，拥有超过2亿张高质量的图片、视频和音乐素材。视觉中国在其平台上推出了AI图片功能，即使用人工智能技术为用户提供定制化的图片生成服务。',
+                    text2: '联合信任为视觉中国AI图片提供了AIGC PAS服务，为每一张AI图片生成了一个唯一的身份标识（tsa token），用户可以通过视觉中国AI平台或访问可信时间戳验证平台查看AI图片的溯源和认证信息，从而区分AI图片和真实图片，保护原创作者和使用者的权益。联合信任开放AIGC PAS系统，为更多的AIGC平台提供服务。'
+                },
+                aigcApplyPng: '/images/home/aigcApplyPng.png',
+                userInfo: {},
+                questionImg: '/images/home/question.png',
+
+            }
+        },
+        computed: {},
+        created() {},
+        mounted() {},
+        methods: {},
+    })
+            
+</script>
+</html>
