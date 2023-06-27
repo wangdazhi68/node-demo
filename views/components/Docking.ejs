@@ -1,0 +1,128 @@
+<div class="modal" v-if="dockModal">
+    <el-dialog
+        title="提交接入申请"
+        :visible.sync="visibleOne"
+        :close-on-click-modal="false"
+        :before-close="closeOne"
+        class="myDialog"
+    >
+        <el-row type="flex" justify="start">
+            <el-col :xs="6" :sm="4" :md="4" :lg="4" :xl="4" class="dialogInfo">申请目的：</el-col>
+            <el-col :xs="18" :sm="20" :md="20" :lg="20" :xl="20" class="chooseList">
+                <el-button
+                    v-for="(item, index) in btnList"
+                    :key="index"
+                    :class="(index === checkIndex || applyId === item.applyId)?'btnInfo checked':'btnInfo'"
+                    @click="changeListBtn(item, index)"
+                >
+                    {{ item.name }}
+                </el-button>
+            </el-col>
+        </el-row>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="(visibleOne = false,resetForm(),$emit('onClose'))">取 消</el-button>
+            <el-button type="primary" @click="applyDialogOk">下一步</el-button>
+        </span>
+    </el-dialog>
+    
+    <el-dialog
+        title="提交接入申请"
+        :visible.sync="visibleSec"
+        :close-on-click-modal="false"
+        :before-close="closeSec"
+        class="myDialog"
+    >
+        <el-row type="flex" justify="center">
+            <el-col :span="24">
+                <el-form
+                    :rules="rules"
+                    ref="form"
+                    :model="form"
+                >
+                    <el-form-item label="您的身份" prop="style">
+                        <el-radio-group v-model="form.style">
+                            <el-radio  label="1" style="margin-right:30px">个人</el-radio >
+                            <el-radio  label="0">企业</el-radio >
+                        </el-radio-group>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <span slot="footer" class="dialog-footer">
+            <!-- <el-button @click="prevOne">上一步</el-button> -->
+            <el-button type="primary" @click="applyDialogOkSec">下一步</el-button>
+        </span>
+    </el-dialog>
+
+    <el-dialog
+        title="提交接入申请"
+        :visible.sync="visibleThird"
+        :close-on-click-modal="false"
+        :before-close="closeThird"
+        class="myDialog"
+    >
+        <el-row class="form2">
+            <p class="centerP">很快，我们的专业顾问会与您联系。</p>
+            <el-col :span="24">
+                <el-form
+                    :rules="rules"
+                    ref="form2"
+                    :model="form2"
+                    class="subform"
+                >
+                    <el-form-item label=" " label-width="20px" prop="enterpriseName" v-if="form.style == '0'">
+                        <el-input placeholder="请输入企业名称" v-model="form2.enterpriseName">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label=" " label-width="20px" prop="name">
+                        <el-input placeholder="请输入联系人姓名" v-model="form2.name">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label=" " label-width="20px" prop="phone">
+                        <el-input placeholder="请输入联系人手机号" v-model="form2.phone">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label=" " label-width="20px" prop="verify2">
+                        <el-input
+                            placeholder="请输入联系人手机号"
+                            v-model="form2.verify2"
+                            v-show="false"
+                        >
+                        </el-input>
+                        <!-- <Verification @verification="verification" ref="Verification"/> -->
+                        <div class="myslide">
+                            <div id="captcha"></div>
+                        </div>
+                    </el-form-item>
+                    <div class="yzm-item">
+                        <el-form-item
+                            label=" "
+                            label-width="20px"
+                            prop="captchaCode"
+                        >
+                            <el-input
+                                v-model="form2.captchaCode"
+                                placeholder="短信验证码"
+                            ></el-input>
+                        </el-form-item>
+                        <span
+                            :disabled="disabled"
+                            @click="getVer"
+                            >{{ yzmtext }}</span
+                        >
+                    </div>
+
+                    <el-form-item label=" " label-width="20px" prop="description">
+                        <el-input type="textarea" @input="fontNumber" placeholder="请输入需求描述（不多于200字）" :maxLength="200" :rows="4" v-model="form2.description"/>
+                        <span style="float:right;margin-bottom:-34px">{{ fontNum }}/200</span>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="backSec">上一步</el-button>
+            <el-button type="primary" :loading="btnLoading" @click="applyDialogOkThird">提交</el-button>
+        </span>
+    </el-dialog>
+
+</div>

@@ -11,6 +11,7 @@
     <link rel='stylesheet' href='/stylesheets/aigc/resetCss.css'/>
     <link rel='stylesheet' href='/stylesheets/aigc/aigc.css'/>
     <link rel='stylesheet' href='/stylesheets/aigc/header.css'/>
+    <link rel='stylesheet' href='/stylesheets/aigc/docking.css'/>
 </head>
 
 <body>
@@ -147,24 +148,76 @@
             <div class="title">让可信时间戳为AIGC作证</div>
             <div class="btn" @click="dockModal=true">申请接入</div>
         </div>
+        <%- include('./components/Docking'); %>
     </div>
+
+
+
+
+
+
 </body>
+<script src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/aigc.js"></script>
 <script>
     new Vue({
         el: '#wrap',
         data() {
+            const reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+            let validatePass = (rule, value, callback) => {
+                if (value === "") {
+                    callback(new Error("请输入手机号"));
+                } else {
+                    if (!reg.test(value)) {
+                        callback(new Error("请输入正确手机号"));
+                    } else {
+                        callback();
+                    }
+                }
+            };
+            let verifyPass = (rule, value, callback) => {
+                if (!this.verify) {
+                    callback(new Error("请滑块验证"));
+                } else {
+                    callback();
+                }
+            };
             return {
                 // header
                 show:false,
                 drawShow:true,
                 rightArrow: '/images/header/jiantou.png',
+                unRead:false,
+                unReadList:[],
+                userMenu: [
+                    {
+                        name: "个人中心",
+                        link: '<%= process.env.VUE_APP_ACCOUNTUI %>',
+                        target: "_blank",
+                    },
+                    {
+                        name: '我要充值',
+                        link: '<%= process.env.VUE_APP_ACCOUNTUI %>/userAccount/buy?clientId=952310',
+                        target: '_blank'
+                    },
+                    {
+                        name: '消息中心',
+                        link: '<%= process.env.VUE_APP_ACCOUNTUI %>messageCenter/history?clientId=700012',
+                        target: '_blank',
+                        isMsg:true,
+                    },
+                    {
+                        name: "退出登录",
+                        link:"/api/logout",
+                        target: "_self",
+                    },
+                ],
                 //home
-                dockModal: false,
                 newKeywords: '',
                 questionsList: [],
                 courtRank: [],
@@ -200,17 +253,411 @@
                 aigcApplyPng: '/images/home/aigcApplyPng.png',
                 userInfo: {},
                 questionImg: '/images/home/question.png',
+                // dicking
+                dockModal: false,
+                visibleOne:false,
+                visibleSec:false,
+                visibleThird:false,
+                btnList: [
+                    {name: "知识产权", applyId: 998081},
+                    {name: "邮件认证", applyId: 998049},
+                    {name: "电子合同", applyId: 998113},
+                    {name: "项目招标", applyId: 998145},
+                    {name: "区块链平台", applyId: 998177},
+                    {name: "其他", applyId: 998209}
+                ],
+                form:{
+                    style:''
+                },
+                form2: {
+                    enterpriseName:"",
+                    phone: "",
+                    verify2: "",
+                    captchaCode: "",
+                    description: "",
+                    name: ""
+                },
+                rules: {
+                    style: [
+                        {
+                            required: true,
+                            message: "请选择身份",
+                            trigger: "change"
+                        }
+                    ],
+                    enterpriseName: [
+                        {
+                            required: true,
+                            message: "请输入企业名称",
+                            trigger: "blur"
+                        }
+                    ],
+                    name: [
+                        {
+                            required: true,
+                            message: "请输入联系人姓名",
+                            trigger: "blur"
+                        }
+                    ],
+                    phone: [
+                        {
+                            required: true,
+                            trigger: "blur",
+                            validator: validatePass
+                        }
+                    ],
+                    description: [
+                        {
+                            required: true,
+                            message: "请输入需求描述",
+                            trigger: "blur"
+                        }
+                    ],
+                    captchaCode: [
+                        {
+                            required: true,
+                            message: "请输入验证码",
+                            trigger: "change"
+                        }
+                    ],
+                    verify2: [
+                        {
+                            required: true,
+                            trigger: "change",
+                            validator: verifyPass
+                        }
+                    ]
+                },
+                checkIndex: "",
+                applyId: "998081",
+                yzmtext: "获取验证码",
+                verify:false,
+                currentTime: 60,
+                disabled: false,
+                fontNum:0,
+                btnLoading:false,
+                windowNc: {},
+                verify: false,
+                nvc:'',
             }
         },
         computed: {},
-        created() {},
+        created() {
+            this.getMsg();
+        },
         mounted() {},
         methods: {
             // Home
             goDetail(data) {
                 window.open('<%= process.env.VUE_APP_WEBSITE %>/' + data)
             },
+            async getMsg(){
+                axios({
+                    method: "get",
+                    url: "/api/messenger/unreadCount",
+                }).then(res => {
+                    this.unReadList=res.sourceTypeUnreadList;
+                    res.totalUnreadCount>0 ? this.unRead=true : this.unRead=false;
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            goMsg(){
+                if (this.unRead) {
+                    try {
+                        this.unReadList.forEach((item)=>{
+                            if(item.unreadCount>0){
+                                let url=`<%= process.env.VUE_APP_ACCOUNTUI %>/messageCenter/history?clientId=700012&sysRosterId=${item.sysRosterId}`
+                                this.openHref(url)
+                                throw new Error("终止循环");
+                            }
+                        })
+                    }catch (e) {
+                        console.log(e)
+                    }
+                }else{
+                    window.open(`<%= process.env.VUE_APP_ACCOUNTUI %>/messageCenter/history?clientId=700012`)
+                }
+            },
+            openHref(url){
+                let link = document.createElement("a");
+                link.style.display = "none";
+                link.target = "_blank";
+                link.href = url;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            },
+            onLogin () {
+                let params = Object.assign({}, {
+                    redirectUrl: encodeURI(window.location.href),
+                });
+                window.location.href = "/api/login?" + Qs.stringify(params);
+            },
+            // doking
+            fontNumber(e) {
+                this.fontNum = e.length;
+            },
+            applyDialogOk() {
+                if (this.applyId === "") {
+                    this.$message.warning("请选择申请目的！");
+                    return false;
+                } else {
+                    this.visibleOne = false;
+                    this.visibleSec = true;
+                }
+            },
+            changeListBtn(item, index) {
+                this.checkIndex = index;
+                this.applyId = item.applyId;
+            },
+            prevOne(){
+                this.visibleSec = false;
+                this.visibleOne = true;
+            },
+            applyDialogOkSec(e) {
+                e.preventDefault();
+                let that = this;
+                this.$refs.form.validate(valid => {
+                    if (valid) {
+                        that.visibleThird = true;
+                        that.visibleSec = false;
+                    } else {
+                        console.log("error submit!!");
+                        return false;
+                    }
+                });
+            },
+            applyDialogOkThird(e) {
+                e.preventDefault();
+                let that = this;
+                this.$refs.form2.validate(async valid => {
+                    if (valid) {
+                        this.btnLoading = true;
+                        let {phone, enterpriseName, name, captchaCode, description} = that.form2;
+                        let {style} = that.form;
+                        let obj={
+                            phone,
+                            applyId: this.applyId,
+                            enterpriseName,
+                            name,
+                            style,
+                            captchaCode,
+                            description,
+                            from: 0,
+                        }
+                        axios({
+                            Headers: {
+                                "content-type": "application/json;charset=UTF-8"
+                            },
+                            method: "get",
+                            url: "<%= process.env.VUE_APP_TSA %>/api/sendTools",
+                            data:obj
+                        }).then(res => {
+                            if (res.code === 200) {
+                                that.form2 = {
+                                    name: "",
+                                    phone: "",
+                                    enterpriseName: "",
+                                    verify2: "",
+                                    captchaCode: "",
+                                    description: '',
+                                };
+                                that.$message.success("申请成功！");
+                                that.$refs["form"].resetFields();
+                                that.$refs["form2"].resetFields();
+                                that.$refs.Verification.resetNvc();
+                                that.resetForm();
+                                this.$emit('onClose');
+                            } else {
+                                this.$message.warning(res.data.message);
+                            }
+                        }).catch(err=>{
+                            this.$message.warning(error.message);
+                        })
+                        that.btnLoading = false;
+                    } else {
+                        console.log("error submit!!");
+                        return false;
+                    }
+                });
+            },
+            backSec() {
+                this.visibleThird = false;
+                this.visibleSec = true;
+                this.$refs.Verification.resetNvc();
+                clearInterval(interval);
+                this.$refs["form2"].resetFields();
+            },
+            async verification(data) {
+                let that = this;
+                if (data) {
+                    this.verify=data.verify;
+                    this.$refs["form2"].clearValidate(["verify2"]);
+                    let { phone } = that.form2;
+                    if (!phone) {
+                        that.$message.warning("手机号不能为空");
+                        that.verify=false;
+                        that.resetNvc();
+                        return false;
+                    }
+                    let reg = /^1[3456789]\d{9}$/;
+                    if (!reg.test(phone)) {
+                        that.$message.warning("手机号格式不正确");
+                        that.verify=false;
+                        that.resetNvc();
+                        return false;
+                    }
+                    that.getCode();
 
+                    axios({
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+                        method: "post",
+                        url: "<%= process.env.VUE_APP_TSA %>/api/captcha/sendSmsCode",
+                        data:Qs.stringify({
+                            nvc: data.nvc,
+                            phone: that.form2.phone
+                        })
+                    }).then(res => {
+                        if (res.code === 200) {
+                            that.$message.success(res.message);
+                            that.verify = true;
+                            that.form2.verify2 = "213";
+                            that.$refs["form2"].clearValidate(["verify2"]);
+                        } else {
+                            that.$message.warning(res.data.message);
+                            that.resetNvc();
+                            clearInterval(interval);
+                            that.yzmtext = "获取验证码";
+                            that.disabled = false;
+                            that.verify = false;
+                        }
+                    }).catch(err=>{
+                        this.$message.warning(error.message);
+                    })
+                }
+            },
+            getVer() {
+                let {phone} = this.form2;
+                let that = this;
+                if (!phone) {
+                    that.$message.warning("手机号不能为空");
+                    return false;
+                }
+                let reg = /^1[3456789]\d{9}$/;
+                if (!reg.test(phone)) {
+                    that.$message.warning("手机号格式不正确");
+                    return false;
+                }
+                if (!this.verify) {
+                    that.$message.warning("请先进行滑块验证");
+                    return false;
+                }
+                this.$refs.Verification.alicode();
+            },
+            getCode() {
+                var that = this;
+                var currentTime = that.currentTime;
+                that.disabled = true;
+                interval = setInterval(function() {
+                    currentTime--;
+                    that.yzmtext = "(" + currentTime + "s)重新获取";
+                    if (currentTime <= 0) {
+                    clearInterval(interval);
+                    that.currentTime = 60;
+                    that.yzmtext = "获取验证码";
+                    that.disabled = false;
+                    }
+                }, 1000);
+            },
+            closeOne(done){
+                this.resetForm();
+                this.dockModal=false;
+                done&&done();
+            },
+            closeSec(done){
+                this.$refs["form"].resetFields();
+                this.resetForm();
+                this.dockModal=false;
+                done&&done();
+            },
+            closeThird(done){
+                this.$refs["form"].resetFields();
+                this.$refs["form2"].resetFields();
+                this.resetForm();
+                // this.$emit('onClose');
+                this.dockModal=false;
+                done&&done();
+            },
+            //置空钉钉推送相关字段
+            resetForm(){
+                this.form.style='';
+                this.monitorOne=false;
+                this.visibleOne = false;
+                this.visibleSec = false;
+                this.visibleThird = false;
+                this.disabled = false;
+                this.yzmtext = "获取验证码";
+                this.currentTime=60;
+                this.verify = false;
+                this.checkIndex = "";
+                this.applyId = "998081";
+                clearInterval(interval);
+                this.form2.enterpriseName = "";
+                this.form2.captchaCode = "";
+            },
+            
+            
+            set_ALY_config() {
+                let that = this;
+                let myLang = {
+                    cn: {
+                        //等待滑动状态提示。
+                        //'SLIDE': "请向右滑动验证",
+                        //验证失败触发拦截状态提示。
+                        FAIL: "验证失败，请手动刷新页面重试",
+                    },
+                };
+                let ncOption = {
+                    // 应用类型标识。它和使用场景标识（scene字段）一起决定了无痕验证的业务场景与后端对应使用的策略模型。您可以在人机验证控制台的配置管理页签找到对应的appkey字段值，请务必正确填写。
+                    appkey: "FFFF0N000000000099FD",
+                    //使用场景标识。它和应用类型标识（appkey字段）一起决定了无痕验证的业务场景与后端对应使用的策略模型。您可以在人机验证控制台的配置管理页签找到对应的scene值，请务必正确填写。
+                    scene: "nc_login",
+                    renderTo: that.id,
+                    upLang: myLang,
+                    customWidth: 373,
+
+                    // 二次验证获取人机信息串，跟随业务请求一起上传至业务服务器，由业务服务器进行验签。
+                    success: function (data) {
+                        // window.console && console.log(data);
+                        that.nvc=data.sessionId +"|" +data.sig +"|" +data.token +"|nc_login";
+                        that.verify = true;
+                        // that.alicode({ verify: that.verify });
+                        that.verification({ verify: that.verify })
+                    },
+                    // 前端二次验证失败时触发该回调参数
+                    fail: function (failCode) {
+                        window.console && console.log(failCode);
+                        that.verify = false;
+                    },
+                    // 前端二次验证加载异常时触发该回调参数。
+                    error: function (errorCode) {
+                        window.console && console.log(errorCode);
+                        that.verify = false;
+                    },
+                };
+
+                // 实例化nvc 对无痕验证进行初始化操作
+                AWSC.use("nc", function (state, module) {
+                    that.module = module;
+                    // 初始化 调用module.init进行初始化
+                    window.nc = module.init(ncOption);
+                });
+            },
+            resetNvc() {
+                window.nc.reset();
+                this.verify = false;
+            },
         },
     })
             

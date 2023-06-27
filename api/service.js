@@ -1,10 +1,6 @@
 var request = require('./index');
 
-const Me = params =>
-    request({
-        method: 'get',
-        url: '/me',
-    });
+
 
 const questionAnswerSearch = data =>
     request({
@@ -74,7 +70,6 @@ const newsSearch = data =>
 
 
 module.exports={
-    Me,
     questionAnswerSearch,
     guideSearch,
     precedent,

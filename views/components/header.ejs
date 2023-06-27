@@ -178,19 +178,26 @@
                                 <img src="/images/header/findAlawyer.png" />
                                 <p>找律师</p>
                             </a>
-                            <!-- <div class="login">
-                                <div class="notLogin" v-if="!userInfo.loginName">
+
+                            
+                            <div class="login">
+                                <% if(!userInfo.loginName){ %>
+                                <div class="notLogin">
                                     <a class="loginOrRegister" href="javascript:;" @click="onLogin">登录 | 注册</a>
                                 </div>
-                                <ul v-else>
+                                <% } else { %>
+                                <ul>
                                     <li class="icon">
-                                        <img class="vip" src="./images/personVIP.png" v-if="isLawyer" alt="">
-                                        <img src="./images/personPC.png" v-else alt="">
-                                        <i class="redPoint" v-if="unRead" />
+                                        <% if(isLawyer){ %>
+                                        <img class="vip" src="/images/header/userVIP.png" alt="律师">
+                                        <% } else { %>
+                                        <img src="/images/header/personPC.png" alt="头像">
+                                        <% } %>
+                                        <i class="redPoint" v-if="unRead"></i>
                                     </li>
                                     <li class="phone">
-                                        <p>{{ userInfo.loginName }}</p>
-                                        <img src="./images/jiantou.png" alt="">
+                                        <p><%= userInfo.loginName %></p>
+                                        <img src="/images/header/jiantou.png" alt="">
                                         <div class="dropMenu">
                                             <ol>
                                                 <template v-for="(item, index) in userMenu">
@@ -208,7 +215,8 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div> -->
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>

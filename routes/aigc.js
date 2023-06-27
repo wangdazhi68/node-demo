@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var API = require('../api/service');
+var ACCOUNTAPI = require('../api/account/service');
 var qs = require('qs');
 var navlist=require('../utils/navbar');
 /* GET users listing. */
@@ -20,14 +21,15 @@ router.get('/', async (req, res, next)=> {
         return obj
     }
     var list = JSON.parse(JSON.stringify(navListRecursion(navlist, navlist)))
-
-    try {
-        let userInfo=await API.Me();
-        console.log(userInfo);
+    var userInfo='';
+    var isLawyer=false;
+    try { 
+        userInfo=await ACCOUNTAPI.Me();
+        let lawyerInfo=await ACCOUNTAPI.findLawyer();
+        lawyerInfo ? isLawyer=true : isLawyer=false;
     } catch (error) {
         console.log(error);
     }
-    
 
     let data1 = await API.newsSearch({
         size: 3,
@@ -45,6 +47,8 @@ router.get('/', async (req, res, next)=> {
     let data={
         currentRoute:req.baseUrl,
         list,
+        userInfo:userInfo?userInfo:'',
+        isLawyer,
         addressInfo: [
             {
                 img: "/images/home/address1.png",

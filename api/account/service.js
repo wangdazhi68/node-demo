@@ -1,14 +1,27 @@
-import request from "./index";
+var request = require('./index');
 
-export const unreadCount = () =>
+const Me = params =>
+    request({
+        method: 'get',
+        url: '/me',
+    });
+
+const unreadCount = () =>
     request({
         method: 'get',
         url: '/messenger/unreadCount',
     });
 
 //律师认证状态获取
-export const findLawyer= () =>
+const findLawyer= () =>
     request({
         url: '/lawyer/findById',
         method: "get",
     });
+
+
+module.exports={
+    Me,
+    unreadCount,
+    findLawyer,
+}

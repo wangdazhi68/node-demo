@@ -1,9 +1,9 @@
-import axios from "axios";
+var axios = require('axios');
 var baseURL;
 if (process.env.NODE_ENV === 'development') {
-    baseURL = '/api/account/api';
+    baseURL = '/api';
 } else {
-    baseURL = '/account/api';
+    baseURL = '/api';
 }
 
 axios.defaults.headers = {}
@@ -20,6 +20,11 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
+        // console.log('****************'+global.aa)
+        if(global.access_token){
+            config.headers['Authorization'] ='Bearer ' + global.access_token
+        }
+        
         return config;
     },
     error => {
@@ -31,9 +36,9 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         const { status, data } = response;
-        if (response instanceof Blob) {
-            return response;
-        }
+        // if (response instanceof Blob) {
+        //     return response;
+        // }
         if (status !== 200) {
             return false;
         } else {
@@ -45,4 +50,4 @@ service.interceptors.response.use(
     }
 );
 
-export default service;
+module.exports=service;

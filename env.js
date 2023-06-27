@@ -37,7 +37,7 @@ module.exports={
         VUE_APP_COPYRIGHT:'http://opus.tsatest.cn',
         VUE_APP_EMAIL:'http://mail-proof.tsatest.cn',
         VUE_APP_LAWCASE:'http://lawcase.tsatest.cn',
-        VUE_APP_TSA:'https://www.tsa.cn',
+        VUE_APP_TSA:'http://website.tsapre.cn',
         VUE_APP_VERIFY:'https://v.tsa.cn',
         VUE_APP_MEDIA:'http://media.tsa.cn/tsa',
         VUE_APP_NTSC:'http://www.ntsc.ac.cn',

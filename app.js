@@ -7,12 +7,14 @@ var logger = require('morgan');
 var myenv = require("./env.js");
 process.env=Object.assign({}, process.env , myenv[process.env.MODE])
 
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var aigcRouter = require('./routes/aigc');
 
+const { createProxyMiddleware } = require('http-proxy-middleware');//引入代理中间件
 var app = express();
+var apiProxy = createProxyMiddleware('/api', { target: 'http://account.tsatest.cn',changeOrigin: true });//将服务器代理到该地址
+
 
 //var swig = require('swig');
 // app.set('view cache', false);
@@ -31,12 +33,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
+app.use('/api/*', apiProxy);//api子目录下的都是用代理
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //设置静态资源目录
+
+app.use((req, res, next)=> {
+  console.log(req.cookies.access_token);
+  global.access_token=req.cookies.access_token;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -51,7 +59,6 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  console.log(req.app.get('env'))
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
