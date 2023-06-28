@@ -1,4 +1,4 @@
-<div class="modal" v-if="dockModal">
+<div class="modal" v-show="dockModal">
     <el-dialog
         title="提交接入申请"
         :visible.sync="visibleOne"
@@ -59,6 +59,7 @@
         :visible.sync="visibleThird"
         :close-on-click-modal="false"
         :before-close="closeThird"
+        ref="slideDia"
         class="myDialog"
     >
         <el-row class="form2">

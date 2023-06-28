@@ -25,6 +25,11 @@ const navList = [
                 target: '_blank',
             },
             {
+                name: 'AIGC PAS',
+                link: '/aigc',
+                target: '_self',
+            },
+            {
                 name: '电子签约',
                 link: process.env.VUE_APP_SIGN,
                 target: '_blank',

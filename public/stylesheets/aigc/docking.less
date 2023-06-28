@@ -34,10 +34,10 @@
     }
 }
 .myDialog{
-    /deep/.el-dialog{
+    .el-dialog{
         max-width:530px;
     }
-    /deep/.el-dialog__header{
+    .el-dialog__header{
         padding:16px 24px;
         border-bottom: 1px solid #e8e8e8;
         .el-dialog__title{
@@ -46,11 +46,11 @@
             color:#111;
         }
     }
-    /deep/.el-dialog__footer{
+    .el-dialog__footer{
         padding: 10px 16px;
         border-top: 1px solid #e8e8e8;
     }
-    /deep/.el-dialog__body{
+    .el-dialog__body{
         padding: 24px;
         .btnInfo {
             margin-bottom: 20px;
@@ -91,7 +91,7 @@
 
 @media (max-width: 750px){
     .myDialog{
-        /deep/.el-dialog{
+        .el-dialog{
             width: 96%;
         }
     }
@@ -100,46 +100,46 @@
 .myslide {
     /* 阿里无痕验证 */
 
-    /deep/ .nc-container .nc_scale {
+    .nc-container .nc_scale {
         background: #f0f0f0 !important;
     }
 
-    /deep/ .nc-container .nc_scale div.nc_bg {
+    .nc-container .nc_scale div.nc_bg {
         background: #a8d5ff !important;
     }
 
-    /deep/ .nc-container .nc_scale .scale_text2 {
+    .nc-container .nc_scale .scale_text2 {
         color: #fff !important;
     }
 
-    /deep/ .nc-container .nc_scale span {
+    .nc-container .nc_scale span {
         border: none !important;
     }
 
-    /deep/ .nc-container .errloading {
+    .nc-container .errloading {
         border: #faf1d5 1px solid !important;
         color: #ef9f06 !important;
     }
 
     /* 阿里无痕验证 */
 
-    /deep/ .nc-container {
+    .nc-container {
         position: static !important;
     }
 
-    /deep/ .nc-container .nc_wrapper {
+    .nc-container .nc_wrapper {
         width: 100% !important;
         height:36px !important;
     }
 
-    /deep/ .nc-container .errloading {
+    .nc-container .errloading {
         width: 100% !important;
         box-sizing: border-box;
     }
 
     /* 外层父元素 */
 
-    /deep/ .nc-container .nc_scale {
+    .nc-container .nc_scale {
         height:36px !important;
         line-height:36px !important;
         border-radius: 4px;
@@ -148,7 +148,7 @@
 
     /* 上层条 */
 
-    /deep/ .nc-container .nc_scale span.nc-lang-cnt {
+    .nc-container .nc_scale span.nc-lang-cnt {
         box-sizing: content-box;
         height:36px !important;
         line-height:36px !important;
@@ -159,7 +159,7 @@
 
     /* 滑块 */
 
-    /deep/ .nc-container .nc_scale .btn_slide {
+    .nc-container .nc_scale .btn_slide {
         border: none !important;
         height:36px !important;
         line-height:36px !important;
@@ -170,7 +170,7 @@
         width:36px !important;
     }
 
-    /deep/ .nc-container .nc_scale .btn_ok {
+    .nc-container .nc_scale .btn_ok {
         height:36px !important;
         line-height:36px !important;
         font-size: 30px !important;
@@ -180,7 +180,7 @@
 
     /* 下层条 */
 
-    /deep/ .nc-container .nc_scale div.nc_bg {
+    .nc-container .nc_scale div.nc_bg {
         /* border-radius: 4px; */
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;

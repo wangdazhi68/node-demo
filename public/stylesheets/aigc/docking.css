@@ -33,26 +33,26 @@
   cursor: inherit;
   border-color: #bcbcbc;
 }
-.myDialog /deep/ .el-dialog {
+.myDialog .el-dialog {
   max-width: 530px;
 }
-.myDialog /deep/ .el-dialog__header {
+.myDialog .el-dialog__header {
   padding: 16px 24px;
   border-bottom: 1px solid #e8e8e8;
 }
-.myDialog /deep/ .el-dialog__header .el-dialog__title {
+.myDialog .el-dialog__header .el-dialog__title {
   font-size: 16px;
   line-height: 22px;
   color: #111;
 }
-.myDialog /deep/ .el-dialog__footer {
+.myDialog .el-dialog__footer {
   padding: 10px 16px;
   border-top: 1px solid #e8e8e8;
 }
-.myDialog /deep/ .el-dialog__body {
+.myDialog .el-dialog__body {
   padding: 24px;
 }
-.myDialog /deep/ .el-dialog__body .btnInfo {
+.myDialog .el-dialog__body .btnInfo {
   margin-bottom: 20px;
   width: 98px;
   height: 36px;
@@ -63,13 +63,13 @@
   margin-left: 0;
   margin-right: 15px;
 }
-.myDialog /deep/ .el-dialog__body .checked {
+.myDialog .el-dialog__body .checked {
   background: #e8efff;
   border: 1px solid #3758ff;
   border-radius: 18px;
   color: #3758ff;
 }
-.myDialog /deep/ .el-dialog__body .centerP {
+.myDialog .el-dialog__body .centerP {
   font-size: 16px;
   font-family: Microsoft YaHei;
   font-weight: 400;
@@ -77,17 +77,17 @@
   margin-bottom: 30px;
   text-align: center;
 }
-.myDialog /deep/ .el-dialog__body .btnCode {
+.myDialog .el-dialog__body .btnCode {
   padding: 9px 24px;
   margin-right: 0px;
   font-size: 12px;
 }
-.myDialog /deep/ .el-dialog__body .el-input__inner {
+.myDialog .el-dialog__body .el-input__inner {
   height: 36px;
   line-height: 36px;
 }
 @media (max-width: 750px) {
-  .myDialog /deep/ .el-dialog {
+  .myDialog .el-dialog {
     width: 96%;
   }
 }
@@ -99,40 +99,40 @@
   /* 滑块 */
   /* 下层条 */
 }
-.myslide /deep/ .nc-container .nc_scale {
+.myslide .nc-container .nc_scale {
   background: #f0f0f0 !important;
 }
-.myslide /deep/ .nc-container .nc_scale div.nc_bg {
+.myslide .nc-container .nc_scale div.nc_bg {
   background: #a8d5ff !important;
 }
-.myslide /deep/ .nc-container .nc_scale .scale_text2 {
+.myslide .nc-container .nc_scale .scale_text2 {
   color: #fff !important;
 }
-.myslide /deep/ .nc-container .nc_scale span {
+.myslide .nc-container .nc_scale span {
   border: none !important;
 }
-.myslide /deep/ .nc-container .errloading {
+.myslide .nc-container .errloading {
   border: #faf1d5 1px solid !important;
   color: #ef9f06 !important;
 }
-.myslide /deep/ .nc-container {
+.myslide .nc-container {
   position: static !important;
 }
-.myslide /deep/ .nc-container .nc_wrapper {
+.myslide .nc-container .nc_wrapper {
   width: 100% !important;
   height: 36px !important;
 }
-.myslide /deep/ .nc-container .errloading {
+.myslide .nc-container .errloading {
   width: 100% !important;
   box-sizing: border-box;
 }
-.myslide /deep/ .nc-container .nc_scale {
+.myslide .nc-container .nc_scale {
   height: 36px !important;
   line-height: 36px !important;
   border-radius: 4px;
   overflow: hidden;
 }
-.myslide /deep/ .nc-container .nc_scale span.nc-lang-cnt {
+.myslide .nc-container .nc_scale span.nc-lang-cnt {
   box-sizing: content-box;
   height: 36px !important;
   line-height: 36px !important;
@@ -140,7 +140,7 @@
   border-radius: 4px;
   font-size: 14px;
 }
-.myslide /deep/ .nc-container .nc_scale .btn_slide {
+.myslide .nc-container .nc_scale .btn_slide {
   border: none !important;
   height: 36px !important;
   line-height: 36px !important;
@@ -150,14 +150,14 @@
   border-bottom-right-radius: 4px;
   width: 36px !important;
 }
-.myslide /deep/ .nc-container .nc_scale .btn_ok {
+.myslide .nc-container .nc_scale .btn_ok {
   height: 36px !important;
   line-height: 36px !important;
   font-size: 30px !important;
   width: 36px !important;
   background: #f0f0f0;
 }
-.myslide /deep/ .nc-container .nc_scale div.nc_bg {
+.myslide .nc-container .nc_scale div.nc_bg {
   /* border-radius: 4px; */
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;

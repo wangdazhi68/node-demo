@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "serve": "cross-env MODE=dev supervisor bin/www",
     "test": "cross-env MODE=test supervisor bin/www",
+    "pre": "cross-env MODE=pre supervisor bin/www",
     "build": "cross-env MODE=prod supervisor bin/www"
   },
   "dependencies": {

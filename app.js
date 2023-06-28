@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var moment= require('moment');
 
 var myenv = require("./env.js");
 process.env=Object.assign({}, process.env , myenv[process.env.MODE])
@@ -27,6 +28,10 @@ var apiProxy = createProxyMiddleware('/api', { target: 'http://account.tsatest.c
 // //关闭swig缓存,缓存的目的也是提高node服务器的响应速度
 // swig.setDefaults({cache:false});
 
+// 注入全局方法
+app.locals.myDateFormat = function(date){
+  return moment(date).format('YYYY-MM-DD');
+};
 
 
 // view engine setup

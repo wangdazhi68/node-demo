@@ -2,25 +2,9 @@ var express = require('express');
 var router = express.Router();
 var API = require('../api/service');
 var ACCOUNTAPI = require('../api/account/service');
-var qs = require('qs');
 var navlist=require('../utils/navbar');
-/* GET users listing. */
+
 router.get('/', async (req, res, next)=> {
-    var navListRecursion=(obj, navList, idx)=>{
-        navList.map((item, index) => {
-            item.selected = false
-            item.show = false
-            // item.link && (item.link = channelLink(item.link, 'bdipr'))
-            item.index = idx ? idx + '-' + index : index.toString()
-            if((req.baseUrl+'?'+qs.stringify(req.query) )=== item.link){
-                let indexArray = item.index.split('-')
-                initialIndex = parseInt(indexArray[0])
-            }
-            item.children && navListRecursion(obj, item.children, item.index)
-        })
-        return obj
-    }
-    var list = JSON.parse(JSON.stringify(navListRecursion(navlist, navlist)))
     var userInfo='';
     var isLawyer=false;
     try { 
@@ -30,7 +14,6 @@ router.get('/', async (req, res, next)=> {
     } catch (error) {
         console.log(error);
     }
-
     let data1 = await API.newsSearch({
         size: 3,
         type: 4,
@@ -46,7 +29,7 @@ router.get('/', async (req, res, next)=> {
     let data3=await API.precedentStatistics();
     let data={
         currentRoute:req.baseUrl,
-        list,
+        list:navlist,
         userInfo:userInfo?userInfo:'',
         isLawyer,
         addressInfo: [

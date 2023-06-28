@@ -4,7 +4,8 @@
                             <div class="tsa-top-container-left">
                                 <div class="time">
                                     <p class="timeP">
-                                        123
+                                        {{time}} (UTC+8:00)
+                                        {{ time }}{{ utc }}
                                     </p>
                                     <div class="showTip">
                                         <a href="javascript:;">国家授时中心标准时间</a>
@@ -16,7 +17,7 @@
                                 <div class="qr">
                                     <div class="tsa-qrcode-tip-app" @touchmove.prevent>
                                         <div class="tsa-qrcode-tip-app-content">
-                                            <div class="tsa-qrcode-tip" style="right: 0" v-show="show">
+                                            <div class="tsa-qrcode-tip" style="right: 0">
                                                 <div class="tsa-qrcode-tip-con">
                                                     <img src="/images/header/footerTsa.png" alt="">
                                                     <div class="detail">
@@ -29,18 +30,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="triangle" v-show="show"></div>
-                                            <a href="javascript:;" class="header_btn" :class="show ? 'selected' : ''">
+                                            <div class="triangle"></div>
+                                            <a href="javascript:;" class="header_btn">
                                                 <span>手机APP</span>
                                             </a>
                                         </div>
-                                        <div class="mask" v-show="show" @click.stop="show = false"></div>
+                                        <div class="mask"></div>
                                     </div>
                                 </div>
                                 <div class="qr">
                                     <div class="tsa-qrcode-tip-app" @touchmove.prevent>
                                         <div class="tsa-qrcode-tip-app-content">
-                                            <div class="tsa-qrcode-tip" style="right: 0" v-show="show">
+                                            <div class="tsa-qrcode-tip" style="right: 0">
                                                 <div class="tsa-qrcode-tip-con">
                                                     <img src="/images/header/footerWx.png" alt="">
                                                     <div class="detail">
@@ -53,18 +54,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="triangle" v-show="show"></div>
-                                            <a href="javascript:;" class="header_btn" :class="show ? 'selected' : ''">
-                                                <span>公众号</span>
+                                            <div class="triangle"></div>
+                                            <a href="javascript:;" class="header_btn">
+                                                <span>视频号</span>
                                             </a>
                                         </div>
-                                        <div class="mask" v-show="show" @click.stop="show = false"></div>
+                                        <div class="mask"></div>
                                     </div>
                                 </div>
                                 <div class="qr">
                                     <div class="tsa-qrcode-tip-app" @touchmove.prevent>
                                         <div class="tsa-qrcode-tip-app-content">
-                                            <div class="tsa-qrcode-tip" style="right: 0;background-image:url('/images/header/10.png')" v-show="show">
+                                            <div class="tsa-qrcode-tip" style="right: 0;background-image:url('/images/header/10.png')">
                                                 <div class="tsa-qrcode-tip-con">
                                                     <img src="/images/header/12.png" alt="">
                                                     <div class="detail">
@@ -87,12 +88,12 @@
                                                 </div>
                                             </div>
 
-                                            <div class="triangle" v-show="show"></div>
-                                            <a href="javascript:;" class="header_btn" :class="show ? 'selected' : ''">
+                                            <div class="triangle"></div>
+                                            <a href="javascript:;" class="header_btn">
                                                 <span>公众号</span>
                                             </a>
                                         </div>
-                                        <div class="mask" v-show="show" @click.stop="show = false"></div>
+                                        <div class="mask"></div>
                                     </div>
                                 </div>
                             </div>
@@ -106,15 +107,10 @@
                                     <img src="/images/header/tsaHeaderLogo.png" alt="">
                                 </a>
                             </div>
-                            <div class="nav" :class="drawShow ? 'slide' : ''">
+                            <div class="nav">
 
                                 <% list.forEach((item,index)=> { %>
-                                <div 
-                                    class="nav-item" 
-                                    :class="[
-                                        <%=currentRoute==item.link?'initActived' : '' %>
-                                    ]"
-                                >
+                                <div class="nav-item">
                                     <div class="nav-item-name">
                                         <a 
                                             href="<%= item.link ? item.link : 'javascript:;' %>" 
@@ -127,10 +123,7 @@
                                             v-show="<%= item.children  && item.children.length!== 0 %>" 
                                             alt=""/>
                                     </div>
-                                    <div 
-                                        class="nav-item-children1" 
-                                        v-show="<%= item.children && item.children.length!== 0 %>"
-                                    >
+                                    <div class="nav-item-children1">
                                         <div class="nav-item-children1-container">
                                             <% if(item.children && item.children.length!== 0){ %>
                                             <% item.children.forEach((item1,index1)=> { %>
@@ -144,11 +137,10 @@
                                                             <%= item1.name %>
                                                         </a>
                                                         <img 
-                                                            class="rightJ" 
-                                                            class="<%= item1.show ? 'rotate' : '' %>"
+                                                            class="<%= item1.show ? 'rightJ rotate' : 'rightJ' %>"
                                                             :src="rightArrow" 
                                                             v-show="<%= item1.children && item.children.length!== 0 %>" 
-                                                            alt="">
+                                                            alt="角标">
                                                     </div>
                                                     <div class="nav-item-children2">
                                                         <div class="nav-item-children2-container">
@@ -197,7 +189,7 @@
                                     </li>
                                     <li class="phone">
                                         <p><%= userInfo.loginName %></p>
-                                        <img src="/images/header/jiantou.png" alt="">
+                                        <img src="/images/header/jiantou.png" alt="角标">
                                         <div class="dropMenu">
                                             <ol>
                                                 <template v-for="(item, index) in userMenu">

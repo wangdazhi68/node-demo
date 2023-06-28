@@ -64,7 +64,7 @@
                             平台是联合信任推出的人工智能生成内容（AIGC）的溯源与认证平台。平台采用密码学、时间戳、哈希值校验、电子签名、数字指纹等多种技术手段，对AIGC生成过程进行全程存证，并颁发唯一且不可篡改的身份标识和来源证明（tsa token），为解决AIGC发展过程中面临的深度伪造、版权纠纷、信任危机以及平台合规等提供证据。
                         </div>
                     </div>
-                    <div class="introLogo bgCommon" :style="{ backgroundImage: 'url(' + introduceInfo.img + ')' }" />
+                    <div class="introLogo bgCommon" :style="{ backgroundImage: 'url(' + introduceInfo.img + ')' }" ></div>
                 </div>
             </div>
             <div class="precedent">
@@ -106,8 +106,7 @@
                                                 <p class="introduce"><%- item.title %></p>
                                                 <p class="caseNo textOverFlow"><%= item.description %></p>
                                             </div>
-                                            <!-- {{ item.publishedAt|parseTime }} -->
-                                            <p class="caseTime"><%= item.publishedAt %></p>
+                                            <p class="caseTime"><%= myDateFormat(item.publishedAt)%></p>
                                         </div>
                                     </li>
                                 <% }); %>
@@ -165,6 +164,13 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/aigc.js"></script>
 <script>
+    $(function(){
+        $("[href = '<%= currentRoute %>']").parents('.nav-item').addClass('initActived');
+        $("[href = '<%= currentRoute %>']").parents('.nav-item').siblings('.nav-item').removeClass('initActived');
+    })
+    var interval=null;
+    var timer=null;
+    var ntpDate = null,nowDate = null,td = null;
     new Vue({
         el: '#wrap',
         data() {
@@ -189,6 +195,8 @@
             };
             return {
                 // header
+                time:'',
+                utc:'',
                 show:false,
                 drawShow:true,
                 rightArrow: '/images/header/jiantou.png',
@@ -342,11 +350,54 @@
             }
         },
         computed: {},
+        watch: {
+            dockModal(val){
+                this.visibleSec=val;
+            },
+        },
         created() {
             this.getMsg();
         },
-        mounted() {},
+        mounted() {
+            //让dialog的body部分不进行懒渲染，默认是懒渲染
+            this.$refs.slideDia.rendered=true;
+            this.set_ALY_config();
+            this.initTime();
+        },
         methods: {
+            // header
+            initTime(){
+                axios({
+                    method: "get",
+                    url:'/api/time/getCurrentTime',
+                }).then((res) => {
+                    ntpDate = res.data;
+                    nowDate = new Date().getTime();
+                    td = ntpDate - nowDate;
+                    nowDate = nowDate + td;
+                }).catch((err) => {
+                    console.log(err);
+                })
+                this.timer = setInterval(() => this.getDate(), 1);
+            },
+            getDate(){
+                if (ntpDate == null) {
+                    return;
+                } else {
+                    var now = new Date().getTime() + td;
+                    if (Math.abs(parseInt(now) - parseInt(nowDate)) > 1000) {
+                        ntpDate = null;
+                        this.initTime();
+                    } else {
+                        this.nowDate = now;
+                        this.time = moment(now).utcOffset(480).format('YYYY-MM-DD HH:mm:ss:SSS');
+                        // nowDate = now;
+                        // var time1 = moment(now).format("YYYY-MM-DD HH:mm:ss:SSS");
+                        // _this.time = `国家授时中心标准时间${time1}`;
+                        // _this.utc = `(UTC${clientTimeZone()})`;
+                    }
+                }
+            },
             // Home
             goDetail(data) {
                 window.open('<%= process.env.VUE_APP_WEBSITE %>/' + data)
@@ -356,8 +407,8 @@
                     method: "get",
                     url: "/api/messenger/unreadCount",
                 }).then(res => {
-                    this.unReadList=res.sourceTypeUnreadList;
-                    res.totalUnreadCount>0 ? this.unRead=true : this.unRead=false;
+                    this.unReadList=res.data.sourceTypeUnreadList;
+                    res.data.totalUnreadCount>0 ? this.unRead=true : this.unRead=false;
                 }).catch(err => {
                     console.log(err)
                 })
@@ -433,12 +484,12 @@
                 let that = this;
                 this.$refs.form2.validate(async valid => {
                     if (valid) {
-                        this.btnLoading = true;
+                        that.btnLoading = true;
                         let {phone, enterpriseName, name, captchaCode, description} = that.form2;
                         let {style} = that.form;
                         let obj={
                             phone,
-                            applyId: this.applyId,
+                            applyId: that.applyId,
                             enterpriseName,
                             name,
                             style,
@@ -450,11 +501,11 @@
                             Headers: {
                                 "content-type": "application/json;charset=UTF-8"
                             },
-                            method: "get",
+                            method: "post",
                             url: "<%= process.env.VUE_APP_TSA %>/api/sendTools",
                             data:obj
                         }).then(res => {
-                            if (res.code === 200) {
+                            if (res.data.code === 200) {
                                 that.form2 = {
                                     name: "",
                                     phone: "",
@@ -466,14 +517,14 @@
                                 that.$message.success("申请成功！");
                                 that.$refs["form"].resetFields();
                                 that.$refs["form2"].resetFields();
-                                that.$refs.Verification.resetNvc();
+                                that.resetNvc();
                                 that.resetForm();
-                                this.$emit('onClose');
+                                that.dockModal=false;
                             } else {
-                                this.$message.warning(res.data.message);
+                                that.$message.warning(res.data.message);
                             }
                         }).catch(err=>{
-                            this.$message.warning(error.message);
+                            that.$message.warning(err.data.message);
                         })
                         that.btnLoading = false;
                     } else {
@@ -485,7 +536,7 @@
             backSec() {
                 this.visibleThird = false;
                 this.visibleSec = true;
-                this.$refs.Verification.resetNvc();
+                this.resetNvc();
                 clearInterval(interval);
                 this.$refs["form2"].resetFields();
             },
@@ -519,8 +570,8 @@
                             phone: that.form2.phone
                         })
                     }).then(res => {
-                        if (res.code === 200) {
-                            that.$message.success(res.message);
+                        if (res.data.code === 200) {
+                            that.$message.success(res.data.message);
                             that.verify = true;
                             that.form2.verify2 = "213";
                             that.$refs["form2"].clearValidate(["verify2"]);
@@ -533,7 +584,7 @@
                             that.verify = false;
                         }
                     }).catch(err=>{
-                        this.$message.warning(error.message);
+                        this.$message.warning(err.data.message);
                     })
                 }
             },
@@ -585,7 +636,6 @@
                 this.$refs["form"].resetFields();
                 this.$refs["form2"].resetFields();
                 this.resetForm();
-                // this.$emit('onClose');
                 this.dockModal=false;
                 done&&done();
             },
@@ -606,8 +656,6 @@
                 this.form2.enterpriseName = "";
                 this.form2.captchaCode = "";
             },
-            
-            
             set_ALY_config() {
                 let that = this;
                 let myLang = {
@@ -623,7 +671,7 @@
                     appkey: "FFFF0N000000000099FD",
                     //使用场景标识。它和应用类型标识（appkey字段）一起决定了无痕验证的业务场景与后端对应使用的策略模型。您可以在人机验证控制台的配置管理页签找到对应的scene值，请务必正确填写。
                     scene: "nc_login",
-                    renderTo: that.id,
+                    renderTo: 'captcha',
                     upLang: myLang,
                     customWidth: 373,
 
@@ -633,7 +681,7 @@
                         that.nvc=data.sessionId +"|" +data.sig +"|" +data.token +"|nc_login";
                         that.verify = true;
                         // that.alicode({ verify: that.verify });
-                        that.verification({ verify: that.verify })
+                        that.verification({ verify: that.verify,nvc: that.nvc})
                     },
                     // 前端二次验证失败时触发该回调参数
                     fail: function (failCode) {
