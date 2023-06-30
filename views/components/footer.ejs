@@ -16,16 +16,16 @@
                             <a href="<%= process.env.VUE_APP_TSA %>" target="_blank">首页</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/openService?type=0 %>" target="_blank">开放平台</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/openService?type=0 " target="_blank">开放平台</a>
                         </li>
                         <li>
                             <a href="<%= process.env.VUE_APP_VERIFY %>" target="_blank">验证中心</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/question %>" target="_blank">帮助中心</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/question" target="_blank">帮助中心</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_USER/login %>" target="_blank">立即登录</a>
+                            <a href="<%= process.env.VUE_APP_USER %>/login" target="_blank">立即登录</a>
                         </li>
                     </ul>
                 </div>
@@ -36,13 +36,13 @@
                             <a href="<%= process.env.VUE_APP_TSA %>" target="_blank">热门问题</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/guide %>" target="_blank">操作演示</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/guide" target="_blank">操作演示</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/sample %>" target="_blank">可信时间戳证书样例</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/sample" target="_blank">可信时间戳证书样例</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/downLoad' %>" target="_blank">相关下载</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/downLoad'" target="_blank">相关下载</a>
                         </li>
                     </ul>
                 </div>
@@ -50,16 +50,16 @@
                     <p class="title">相关声明</p>
                     <ul>
                         <li>
-                            <a href="<%= process.env.VUE_APP_USERCENTER/agreement/registration %>" target="_blank">注册协议</a>
+                            <a href="<%= process.env.VUE_APP_USERCENTER %>/agreement/registration" target="_blank">注册协议</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_USERCENTER/agreement/privacy %>" target="_blank">隐私协议</a>
+                            <a href="<%= process.env.VUE_APP_USERCENTER %>/agreement/privacy" target="_blank">隐私协议</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/honor %>" target="_blank">荣誉资质</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/honor" target="_blank">荣誉资质</a>
                         </li>
                         <li>
-                            <a href="<%= process.env.VUE_APP_TSA/tradeMark %>" target="_blank">注册商标</a>
+                            <a href="<%= process.env.VUE_APP_TSA %>/tradeMark" target="_blank">注册商标</a>
                         </li>
                     </ul>
                 </div>
@@ -128,10 +128,6 @@
                 </p>
             </div>
             <div class="copyright-container">
-                <div class="infor" v-for="(item, index) in copyright" :key="index">
-                    <a v-if="item.link" :href="item.link" :target="mixinsDeviceType === 'PC' ? item.target : '_self'">{{ item.name }}</a>
-                    <p v-else>{{ item.name }}</p>
-                </div>
                 <div class="infor">
                     <p>版权所有：北京联合信任技术服务有限公司</p>
                     <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">京ICP备13046264号-2</a>

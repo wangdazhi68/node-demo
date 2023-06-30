@@ -7,3 +7,4 @@ $(function(){
         $(this).find('.nav-item-name').removeClass('actived');
     })
 })
+

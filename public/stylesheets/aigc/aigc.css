@@ -110,6 +110,9 @@
   background: #fff;
   padding: 22px 31px;
 }
+.preCon .pre-bg .pre-right .qusion .el-input__icon {
+  cursor: pointer;
+}
 .preCon .pre-bg .pre-right .title {
   text-align: center;
   font-size: 28px;

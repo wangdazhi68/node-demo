@@ -1,0 +1,192 @@
+.tsa-footer {
+  width: 100%;
+  background: #04061d;
+}
+.tsa-footer .tsa-footer-container {
+  width: 1240PX;
+  min-width: 1240PX;
+  padding-top: 34PX;
+  padding-bottom: 19PX;
+  margin: 0 auto;
+  color: #949499;
+  font-weight: bolder;
+  font-size: 14PX;
+}
+.tsa-footer .tsa-footer-container a {
+  color: #949499;
+}
+.tsa-footer .tsa-footer-container .top {
+  display: flex;
+  margin-bottom: 92PX;
+}
+.tsa-footer .tsa-footer-container .top .logo {
+  width: 310PX;
+  margin-top: 43PX;
+}
+.tsa-footer .tsa-footer-container .top .logo img {
+  width: 163PX;
+  margin-bottom: 30PX;
+}
+.tsa-footer .tsa-footer-container .top .logo p {
+  margin-bottom: 19PX;
+}
+.tsa-footer .tsa-footer-container .top .logo p:last-child {
+  margin-bottom: 0;
+}
+.tsa-footer .tsa-footer-container .top .logo .address {
+  background: none !important;
+}
+.tsa-footer .tsa-footer-container .top .content {
+  display: flex;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item:first-child {
+  width: 190PX;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item:nth-child(2) {
+  width: 213PX;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item:nth-child(3) {
+  width: 165PX;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item .title {
+  font-size: 18PX;
+  color: #fff;
+  margin-bottom: 19PX;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item ul li {
+  padding-top: 21PX;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item ul li:first-child {
+  padding-top: 0;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item ul li a {
+  color: #949499;
+}
+.tsa-footer .tsa-footer-container .top .content .nav-content-item ul li a:hover {
+  color: #fff;
+}
+.tsa-footer .tsa-footer-container .top .erweimas {
+  width: 361PX;
+  position: relative;
+  margin-top: 31PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .image {
+  position: absolute;
+  top: 13PX;
+  left: 0;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .image p {
+  margin-top: 18PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .name {
+  padding-left: 162PX;
+  cursor: pointer;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .name:hover img {
+  opacity: 1!important;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .name:hover p {
+  color: #fff;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container:first-child .triangle {
+  top: 5PX;
+  border-color: #fff transparent transparent #fff;
+  border-width: 8PX 8PX 8PX 6PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container:nth-child(2) .triangle {
+  top: 37PX;
+  right: -18PX !important;
+  border-color: transparent transparent transparent #fff;
+  border-width: 8PX 8PX 8PX 10PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container:nth-child(3) .triangle {
+  top: 78PX;
+  right: -18PX !important;
+  border-color: transparent transparent transparent #fff;
+  border-width: 8PX 8PX 8PX 10PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container:nth-child(4) .triangle {
+  top: 116PX;
+  border-color: transparent transparent #fff #fff;
+  border-width: 8PX 8PX 8PX 6PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container .image {
+  display: none;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container .image img {
+  width: 140PX;
+  height: 140PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container .image .triangle {
+  position: absolute;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container .name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container .name img {
+  width: 32PX;
+  height: 32PX;
+  margin-right: 8PX;
+  opacity: 0.7;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container .name p {
+  padding-bottom: 3PX;
+}
+.tsa-footer .tsa-footer-container .top .erweimas .erweima-container:hover .image {
+  display: block;
+}
+.tsa-footer .tsa-footer-container .bottom a:hover {
+  color: #3758ff;
+}
+.tsa-footer .tsa-footer-container .bottom .friendship {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 14PX;
+  color: #fff;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  font-size: 14PX;
+}
+.tsa-footer .tsa-footer-container .bottom .friendship p {
+  display: flex;
+  align-items: center;
+}
+.tsa-footer .tsa-footer-container .bottom .friendship p a {
+  display: block;
+  color: #fff;
+  padding: 0 5PX;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  font-size: 14PX;
+}
+.tsa-footer .tsa-footer-container .bottom .friendship p a:hover {
+  color: #3758ff;
+}
+.tsa-footer .tsa-footer-container .bottom .copyright-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 7PX;
+}
+.tsa-footer .tsa-footer-container .bottom .copyright-container .infor {
+  display: flex;
+  align-items: center;
+}
+.tsa-footer .tsa-footer-container .bottom .copyright-container .infor p {
+  margin-right: 15PX;
+}
+.tsa-footer .tsa-footer-container .bottom .copyright-container .infor a {
+  display: block;
+  margin-right: 15PX;
+  cursor: pointer;
+}
+.tsa-footer .tsa-footer-container .bottom .copyright-container .infor a:hover {
+  color: #3758ff;
+}

@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>aigc页面demo</title>
+    <title>AICG认证|AIGC溯源|AIGC存证-AIGC-PAS平台</title>
+    <meta name="keywords" content="AIGC认证,AIGC溯源,AIGG存证,AIGC-PAS平台"/>
+    <meta name="description" content="联合信任推出人工智能生成内容（AIGC）的溯源与认证平台，平台采用密码学、时间戳、哈希值校验、电子签名、数字指纹等多种技术手段，对AIGC生成过程进行全程存证，并颁发唯一且不可篡改的身份标识和来源证明（tsa token），为解决AIGC发展过程中面临的深度伪造、版权纠纷、信任危机以及平台合规等提供证据。"/>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel='stylesheet' href='/stylesheets/aigc/baseCss.css'/>
     <link rel='stylesheet' href='/stylesheets/aigc/resetCss.css'/>
     <link rel='stylesheet' href='/stylesheets/aigc/aigc.css'/>
     <link rel='stylesheet' href='/stylesheets/aigc/header.css'/>
+    <link rel='stylesheet' href='/stylesheets/aigc/footer.css'/>
     <link rel='stylesheet' href='/stylesheets/aigc/docking.css'/>
 </head>
 
@@ -111,8 +114,12 @@
                                     </li>
                                 <% }); %>
                             </ul>
-                            <div class="more" @click="botClck(1)">
-                                <span>查看更多 <i class="el-icon-right"></i></span>
+                            <div class="more">
+                                <span>
+                                    <a href="<%= process.env.VUE_APP_TSA%>/news" @click.prevent="botClck(1)">
+                                        查看更多 <i class="el-icon-right"></i>
+                                    </a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -123,7 +130,7 @@
                         <div class="qusion">
                             <div class="ipt-wrap">
                                 <el-input type="text" placeholder="请输入您想要了解的问题或关键字" v-model="newKeywords" class="ipt">
-                                    <i class="el-icon-search el-input__icon" slot="suffix" @click="botClck(3)">
+                                    <i class="el-icon-search el-input__icon" slot="suffix" @click.prevent="botClck(3)">
                                     </i>
                                 </el-input>
                             </div>
@@ -136,7 +143,11 @@
                                 <% }); %>
                             </ul>
                             <div class="more">
-                                <span @click="botClck(2)">查看更多 <i class="el-icon-right"></i></span>
+                                <span>
+                                    <a href="<%= process.env.VUE_APP_TSA %>/question" @click.prevent="botClck(2)">
+                                        查看更多 <i class="el-icon-right"></i>
+                                    </a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -147,14 +158,11 @@
             <div class="title">让可信时间戳为AIGC作证</div>
             <div class="btn" @click="dockModal=true">申请接入</div>
         </div>
-        <%- include('./components/Docking'); %>
+        <%- include('./components/Docking') %>
+        <div>
+            <%- include('./components/footer'); %>
+        </div>
     </div>
-
-
-
-
-
-
 </body>
 <script src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js"></script>
@@ -162,6 +170,7 @@
 <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="/js/aigc.js"></script>
 <script>
     $(function(){
@@ -369,7 +378,7 @@
             initTime(){
                 axios({
                     method: "get",
-                    url:'/api/time/getCurrentTime',
+                    url:'<%= process.env.VUE_APP_TSA %>/api/time/getCurrentTime',
                 }).then((res) => {
                     ntpDate = res.data;
                     nowDate = new Date().getTime();
@@ -380,27 +389,62 @@
                 })
                 this.timer = setInterval(() => this.getDate(), 1);
             },
+            clientTimeZone() {
+                let munites = new Date().getTimezoneOffset();
+                let hour = parseInt(munites / 60);
+                let munite = munites % 60;
+                let prefix = "-";
+                if (hour < 0 || munite < 0) {
+                    prefix = "+";
+                    hour = -hour;
+                    if (munite < 0) {
+                        munite = -munite;
+                    }
+                }
+                hour = hour + "";
+                munite = munite + "";
+                if (hour.length == 1) {
+                    hour = "0" + hour;
+                }
+                if (munite.length == 1) {
+                    munite = "0" + munite;
+                }
+                return prefix + hour + ":" + munite;
+            },
             getDate(){
                 if (ntpDate == null) {
                     return;
                 } else {
-                    var now = new Date().getTime() + td;
+                    let now = new Date().getTime() + td;
                     if (Math.abs(parseInt(now) - parseInt(nowDate)) > 1000) {
                         ntpDate = null;
                         this.initTime();
                     } else {
-                        this.nowDate = now;
-                        this.time = moment(now).utcOffset(480).format('YYYY-MM-DD HH:mm:ss:SSS');
-                        // nowDate = now;
-                        // var time1 = moment(now).format("YYYY-MM-DD HH:mm:ss:SSS");
-                        // _this.time = `国家授时中心标准时间${time1}`;
-                        // _this.utc = `(UTC${clientTimeZone()})`;
+                        nowDate = now;
+                        this.time=moment(now).format('YYYY-MM-DD HH:mm:ss:SSS');
+                        this.utc=this.clientTimeZone();
                     }
                 }
             },
+            
             // Home
             goDetail(data) {
-                window.open('<%= process.env.VUE_APP_WEBSITE %>/' + data)
+                window.open('<%= process.env.VUE_APP_TSA %>/' + data)
+            },
+            botClck(type) {
+                if (type === 1) {
+                    this.openHref(
+                        '<%= process.env.VUE_APP_TSA %>/news'
+                    )
+                } else if (type === 2) {
+                    this.openHref(
+                        '<%= process.env.VUE_APP_TSA %>/question'
+                    )
+                } else if (type === 3) {
+                    this.openHref(
+                        `<%= process.env.VUE_APP_TSA %>/question?keywords=${this.newKeywords}`
+                    )
+                }
             },
             async getMsg(){
                 axios({
@@ -439,8 +483,23 @@
                 link.click();
                 document.body.removeChild(link);
             },
+            getRouterQuery(){
+                let url = location.search;   //获取url中"?"符后的字串   
+                let theQueryObj = new Object();
+                if (url.indexOf("?") != -1) 
+                {
+                    let str = url.substr(1);
+                    strs = str.split("&");
+                    for (let i = 0; i < strs.length; i++) 
+                    {
+                        theQueryObj[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theQueryObj;
+            },
+            
             onLogin () {
-                let params = Object.assign({}, {
+                let params = Object.assign({clientId:700028},this.getRouterQuery(), {
                     redirectUrl: encodeURI(window.location.href),
                 });
                 window.location.href = "/api/login?" + Qs.stringify(params);

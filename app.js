@@ -32,7 +32,7 @@ var apiProxy = createProxyMiddleware('/api', { target: 'http://account.tsatest.c
 app.locals.myDateFormat = function(date){
   return moment(date).format('YYYY-MM-DD');
 };
-
+app.locals.moment = moment;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,7 +46,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //设置静态资源目录
 
 app.use((req, res, next)=> {
-  console.log(req.cookies.access_token);
   global.access_token=req.cookies.access_token;
   next();
 });

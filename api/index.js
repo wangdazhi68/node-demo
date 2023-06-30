@@ -2,7 +2,8 @@ var axios = require('axios');
 axios.defaults.headers.get['Pragma'] = 'no-cache';
 axios.defaults.headers.get['Cache-Control'] = 'no-cache, no-store';
 const service = axios.create({
-    baseURL:'http://website.tsapre.cn/api/',
+    // baseURL:'http://website.tsatest.cn/api/',
+    baseURL:process.env.VUE_APP_TSA+'/api/',
     timeout: 10000,
     headers: {}
 });

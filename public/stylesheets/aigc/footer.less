@@ -1,0 +1,217 @@
+.tsa-footer {
+    width: 100%;
+    background: #04061d;
+    .tsa-footer-container {
+        width: 1240PX;
+        min-width: 1240PX;
+        padding-top: 34PX;
+        padding-bottom: 19PX;
+        margin: 0 auto;
+        color: #949499;
+        font-weight: bolder;
+        font-size: 14PX;
+        a {
+            color: #949499;
+        }
+        .top {
+            display: flex;
+            margin-bottom: 92PX;
+            .logo {
+                width: 310PX;
+                margin-top: 43PX;
+                img {
+                    width: 163PX;
+                    // height: 50PX;
+                    margin-bottom: 30PX;
+                }
+                p {
+                    margin-bottom: 19PX;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                .address{
+                    background:none !important;
+                }
+            }
+            .content {
+                // flex: 1;
+                display: flex;
+                .nav-content-item {
+                    &:first-child {
+                        width:190PX;
+                    }
+                    &:nth-child(2) {
+                        width: 213PX;
+                    }
+                    &:nth-child(3) {
+                        width: 165PX;
+                    }
+                    .title {
+                        font-size: 18PX;
+                        color: #fff;
+                        margin-bottom: 19PX;
+                    }
+                    ul {
+                        li {
+                            padding-top: 21PX;
+                            &:first-child {
+                                padding-top: 0;
+                            }
+                            a {
+                                color: #949499;
+                                &:hover {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .erweimas {
+                width: 361PX;
+                position: relative;
+                margin-top: 31PX;
+                .image {
+                    position: absolute;
+                    top: 13PX;
+                    left: 0;
+                    p {
+                        margin-top: 18PX;
+                    }
+                }
+                .name {
+                    padding-left: 162PX;
+                    cursor: pointer;
+                    &:hover {
+                        img {
+                            opacity: 1!important;
+                        }
+                        p {
+                            color: #fff;
+                        }
+                    }
+                }
+                .erweima-container {
+                    &:first-child {
+                        .triangle {
+                            top: 5PX;
+                            border-color: #fff transparent transparent #fff;
+                            border-width: 8PX 8PX 8PX 6PX;
+                        }
+                    }
+                    &:nth-child(2) {
+                        .triangle {
+                            top: 37PX;
+                            right: -18PX!important;
+                            border-color: transparent transparent transparent #fff;
+                            border-width: 8PX 8PX 8PX 10PX;
+                        }
+                    }
+                    &:nth-child(3) {
+                        .triangle {
+                            top: 78PX;
+                            right: -18PX!important;
+                            border-color: transparent transparent transparent #fff;
+                            border-width: 8PX 8PX 8PX 10PX;
+                        }
+                    }
+                    &:nth-child(4) {
+                        .triangle {
+                            top: 116PX;
+                            border-color: transparent transparent #fff #fff;
+                            border-width: 8PX 8PX 8PX 6PX;
+                        }
+                    }
+                    .image {
+                        display: none;
+                        img {
+                            width: 140PX;
+                            height: 140PX;
+                        }
+                        .triangle {
+                            position: absolute;
+                            // right: -14PX;
+                            right: 0;
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                        }
+                    }
+                    .name {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 10PX;
+                        img {
+                            width: 32PX;
+                            height: 32PX;
+                            margin-right: 8PX;
+                            opacity: 0.7;
+                        }
+                        p {
+                            padding-bottom: 3PX;
+                        }
+                    }
+                    &:hover{
+                        .image{
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        .bottom {
+            a {
+                &:hover {
+                    color: #3758ff;
+                }
+            }
+            .friendship {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-bottom: 14PX;
+                color: #fff;
+                font-family: Source Han Sans CN;
+                font-weight: 400;
+                font-size: 14PX;
+                p {
+                    display: flex;
+                    align-items: center;
+                    a {
+                        display: block;
+                        color: #fff;
+                        padding: 0 5PX;
+                        font-family: Source Han Sans CN;
+                        font-weight: 400;
+                        font-size: 14PX;
+                        &:hover {
+                            color: #3758ff;
+                        }
+                    }
+                }
+            }
+            .copyright-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-bottom: 7PX;
+                .infor {
+                    display: flex;
+                    align-items: center;
+                    p {
+                        margin-right: 15PX;
+                    }
+                    a {
+                        display: block;
+                        margin-right: 15PX;
+                        cursor: pointer;
+                        &:hover {
+                            color: #3758ff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
